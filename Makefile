@@ -2,13 +2,13 @@ CC=g++
 CFLAGS=-Wall -Wextra -std=c++11 -g -O0
 LDFLAGS=
 GCOV_FLAGS=-fprofile-arcs -ftest-coverage
-OBJ=rainhas.o testa_rainhas.o
+OBJ=rainhas.o main.o testa_rainhas.o
 EXEC=verifica_rainhas
 TEST_EXEC=run_tests
 
 # Compila o programa principal
 all: $(EXEC)
-$(EXEC): rainhas.o
+$(EXEC): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 # Compila os objetos
