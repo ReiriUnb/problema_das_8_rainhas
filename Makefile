@@ -6,20 +6,18 @@ OBJ=rainhas.o testa_rainhas.o
 EXEC=verifica_rainhas
 TEST_EXEC=run_tests
 
-all: $(EXEC)
-
 # Compila o programa principal
-$(EXEC): $(OBJ)
-	$(CC) $(CFLAGS) $(GCOV_FLAGS) -o $@ $^ $(LDFLAGS)
+all: $(EXEC)
+$(EXEC): rainhas.o
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 # Compila os objetos
 %.o: %.cpp
-	$(CC) $(CFLAGS) $(GCOV_FLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 # Compila e executa os testes
 test: $(TEST_EXEC)
-
-$(TEST_EXEC): $(OBJ)
+$(TEST_EXEC): testa_rainhas.o
 	$(CC) $(CFLAGS) $(GCOV_FLAGS) -o $@ $^ $(LDFLAGS)
 	./$(TEST_EXEC)
 
