@@ -1,10 +1,7 @@
-#define CATCH_CONFIG_MAIN
-#include "catch.hpp"
 #include "rainhas.h"
 
-TEST_CASE("Verifica tabuleiro válido") {
-    char tabuleiro[8][8] = {
-        
-    };
-    REQUIRE(verificar_tabuleiro(tabuleiro) == 1);
+// Função que verifica se o tabuleiro é uma solução válida para o problema das 8 rainhas
+int verificar_tabuleiro(char tabuleiro[8][8]) {
+    // Implementação da função
+    return -1; // Retorno temporário para compilação
 }
