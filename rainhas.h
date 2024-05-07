@@ -5,3 +5,4 @@
 int verificar_tabuleiro(char tabuleiro[8][8]);
 
 #endif // RAINHAS_H
+

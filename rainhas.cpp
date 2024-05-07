@@ -5,3 +5,4 @@ int verificar_tabuleiro(char tabuleiro[8][8]) {
     // Implementação da função
     return -1; // Retorno temporário para compilação
 }
+
