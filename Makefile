@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-Wall -Wextra -std=c++11 -g -O0
+CFLAGS=-Wall -Wextra -std=c++11 -g -O0 -ftest-coverage -fprofile-arcs
 LDFLAGS=
 GCOV_FLAGS=-fprofile-arcs -ftest-coverage
 OBJ=rainhas.o main.o testa_rainhas.o
@@ -7,7 +7,6 @@ EXEC=verifica_rainhas
 TEST_EXEC=run_tests
 
 # Compila o programa principal
-all: $(EXEC)
 $(EXEC): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
@@ -17,9 +16,11 @@ $(EXEC): $(OBJ)
 
 # Compila e executa os testes
 test: $(TEST_EXEC)
-$(TEST_EXEC): testa_rainhas.o
 	$(CC) $(CFLAGS) $(GCOV_FLAGS) -o $@ $^ $(LDFLAGS)
 	./$(TEST_EXEC)
+
+$(TEST_EXEC): testa_rainhas.o
+	$(CC) $(CFLAGS) $(GCOV_FLAGS) -o $@ $^ $(LDFLAGS)
 
 # Limpa os arquivos de compilação e cobertura
 clean:
@@ -40,6 +41,6 @@ doc:
 
 # Executa o gcov
 gcov:
-	gcov -r -b seu_programa.cpp
+	gcov -r -b $(OBJ:.o=.cpp)
 
 .PHONY: all clean test cppcheck cpplint doc gcov
