@@ -42,20 +42,20 @@ int verificar_tabuleiro(char tabuleiro[8][8]) {
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             if (tabuleiro[i][j] != '0' && tabuleiro[i][j] != '1') {
-                return -1; 
+                return -1; // Entrada inválida
             }
             if (tabuleiro[i][j] == '1') {
                 ++num_rainhas;
                 if (!pode_colocar_rainha(tabuleiro, i, j)) {
-                    return 0; 
+                    return 0; // Não é uma solução válida
                 }
             }
         }
     }
 
     if (num_rainhas != 8) {
-        return -1; 
+        return -1; // Não há exatamente 8 rainhas
     }
 
-    return 1; 
+    return 1; // É uma solução válida
 }
