@@ -1,6 +1,5 @@
 #include "rainhas.h"
 #include <cmath>
-#include <fstream>
 
 bool pode_colocar_rainha(char tabuleiro[8][8], int linha, int coluna) {
     for (int i = 0; i < 8; ++i) {
@@ -32,7 +31,6 @@ bool pode_colocar_rainha(char tabuleiro[8][8], int linha, int coluna) {
 
 int verificar_tabuleiro(char tabuleiro[8][8]) {
     int num_rainhas = 0;
-    std::ofstream arquivo("ataques.txt");
 
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
@@ -41,22 +39,18 @@ int verificar_tabuleiro(char tabuleiro[8][8]) {
             }
             if (tabuleiro[i][j] == '1') {
                 ++num_rainhas;
+                // Verifica se a rainha está atacando outra rainha
                 for (int k = 0; k < 8; ++k) {
-                    if (k != j && tabuleiro[i][k] == '1') {
-                        arquivo << i << "," << j << " " << i << "," << k << "\n";
-                        return 0;
-                    }
-                    if (k != i && tabuleiro[k][j] == '1') {
-                        arquivo << i << "," << j << " " << k << "," << j << "\n";
+                    if ((k != j && tabuleiro[i][k] == '1') || // Ataque na mesma linha
+                        (k != i && tabuleiro[k][j] == '1')) { // Ataque na mesma coluna
                         return 0;
                     }
                 }
                 for (int k = 1; k < 8; ++k) {
-                    if ((i+k < 8 && j+k < 8 && tabuleiro[i+k][j+k] == '1') ||
-                        (i-k >= 0 && j-k >= 0 && tabuleiro[i-k][j-k] == '1') ||
-                        (i+k < 8 && j-k >= 0 && tabuleiro[i+k][j-k] == '1') ||
-                        (i-k >= 0 && j+k < 8 && tabuleiro[i-k][j+k] == '1')) {
-                        arquivo << i << "," << j << " " << i+k << "," << j+k << "\n";
+                    if ((i+k < 8 && j+k < 8 && tabuleiro[i+k][j+k] == '1') || // Ataque na diagonal principal
+                        (i-k >= 0 && j-k >= 0 && tabuleiro[i-k][j-k] == '1') || // Ataque na diagonal principal
+                        (i+k < 8 && j-k >= 0 && tabuleiro[i+k][j-k] == '1') || // Ataque na diagonal secundária
+                        (i-k >= 0 && j+k < 8 && tabuleiro[i-k][j+k] == '1')) { // Ataque na diagonal secundária
                         return 0;
                     }
                 }
@@ -68,6 +62,5 @@ int verificar_tabuleiro(char tabuleiro[8][8]) {
         return -1; // Não há exatamente 8 rainhas
     }
 
-    arquivo.close();
     return 1; // É uma solução válida
 }

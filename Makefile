@@ -38,4 +38,8 @@ cpplint:
 doc:
 	doxygen Doxyfile
 
-.PHONY: all clean test cppcheck cpplint doc
+# Executa o gcov
+gcov:
+	gcov -r -b seu_programa.cpp
+
+.PHONY: all clean test cppcheck cpplint doc gcov
